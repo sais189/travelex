@@ -1,15 +1,13 @@
+import 'dotenv/config'; // ✅ Load .env first
 import { Pool } from 'pg';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import * as schema from "@shared/schema";
+import * as schema from '@shared/schema';
 
-// Use the user's Render database connection string
-const DATABASE_URL = "postgresql://travelex_postgresqldatabase_89r4_user:xtn0p5OdhfhWDTPxBNEsvnBTOEeuLpaQ@dpg-d1e921p5pdvs73bqamvg-a.singapore-postgres.render.com/travelex_postgresqldatabase_89r4";
+const DATABASE_URL = process.env.DATABASE_URL;
 
-export const pool = new Pool({ 
+export const pool = new Pool({
   connectionString: DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: { rejectUnauthorized: false }
 });
 
 export const db = drizzle(pool, { schema });
